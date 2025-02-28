@@ -1,0 +1,17 @@
+{
+  "name": "banger",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "rm -rf docs; tsc && vite build && cp docs/index.html docs/404.html",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.3",
+    "typescript": "~5.8.3",
+    "vite": "^6.2.6",
+    "vite-plugin-pwa": "^1.0.0"
+  }
+}
