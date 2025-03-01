@@ -1,59 +1,70 @@
 # Banger
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.8.
+Banger is a lightweight search engine wrapper that lets you use "bangs" to quickly search across different websites directly from your browser's search bar.
 
-## Development server
+## What are "bangs"?
 
-To start a local development server, run:
+Bangs are special commands prefixed with an exclamation mark (`!`) that redirect your search to specific websites. For example:
+- `!gg angular` searches for "angular" on Google
+- `!yt javascript tutorial` searches for "javascript tutorial" on YouTube
+- `!gh react` searches for "react" on GitHub
 
-```bash
-ng serve
-```
+## Features
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Use bangs in any browser by setting Banger as your default search engine
+- Configure your preferred default search engine
+- Works entirely locally after first load (self-caching)
+- Fast redirects to your favorite search providers
+- Simple, clean interface
 
-## Code scaffolding
+## Available Bangs
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Banger supports many search providers, including:
 
-```bash
-ng generate component component-name
-```
+- `!gg` - Google
+- `!dd` - DuckDuckGo
+- `!yt` - YouTube
+- `!ytm` - YouTube Music
+- `!gh` - GitHub
+- `!npm` - npm package registry
+- `!mdn` - MDN Web Docs
+- And many more!
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## How to Set Up
 
-```bash
-ng generate --help
-```
+1. Visit [https://banger.lzart.com.br](https://banger.lzart.com.br)
+2. Copy the search engine URL: `https://banger.lzart.com.br?q=%s`
+3. Add it to your browser's search engines:
+   - [Instructions for Chrome](https://support.google.com/chrome/answer/95426?hl=pt-BR&co=GENIE.Platform%3DDesktop&oco=1)
+   - [Instructions for Firefox](https://support.mozilla.org/pt-PT/kb/adicionar-ou-remover-motores-de-pesquisa-firefox#w_adicionar-um-motor-de-pesquisa-a-partir-da-barra-da-pesquisa)
 
-## Building
+## Usage
 
-To build the project run:
+1. Type `!` followed by the bang code and your search term in your browser's address bar
+2. If no bang is provided, your default search engine will be used
+3. Use `!cfg` to access the configuration page where you can set your default search engine
 
-```bash
-ng build
-```
+## Configuration
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+You can configure your default search engine by:
+1. Typing `!cfg` in the search bar to access the configuration page
+2. Clicking on any search engine in the list to set it as your default
 
-## Running unit tests
+## Technical Details
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+- Built with Angular
+- Works offline after initial load using service workers
+- Lightweight and fast - redirects happen almost instantly
 
-```bash
-ng test
-```
+## Development
 
-## Running end-to-end tests
+This project is developed and maintained by [LZArt](https://lzart.com.br).
 
-For end-to-end (e2e) testing, run:
+## License
 
-```bash
-ng e2e
-```
+This project is open source.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Links
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- [Banger Website](https://banger.lzart.com.br)
+- [LZArt](https://lzart.com.br)
