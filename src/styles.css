@@ -268,6 +268,13 @@ li:nth-child(even) {
   margin-top: 2rem;
 }
 
+#setup code {
+  text-align: center;
+  margin-inline: auto;
+  display: block;
+  cursor: copy;
+}
+
 /* Dark mode scrollbar */
 ::-webkit-scrollbar {
   width: 10px;

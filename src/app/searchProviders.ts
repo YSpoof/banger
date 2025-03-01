@@ -1,13 +1,23 @@
 const searchProviders = [
   {
-    bang: 'g',
+    bang: 'gg',
     name: 'Google',
     url: 'https://google.com/search?q={{ placeholder }}',
+  },
+  {
+    bang: 'dd',
+    name: 'DuckDuckGo',
+    url: 'https://duckduckgo.com/?q={{ placeholder }}',
   },
   {
     bang: 'yt',
     name: 'Youtube',
     url: 'https://youtube.com/results?search_query={{ placeholder }}',
+  },
+  {
+    bang: 'ytm',
+    name: 'YouTube Music',
+    url: 'https://music.youtube.com/search?q={{ placeholder }}',
   },
   {
     bang: 'gh',
@@ -30,22 +40,22 @@ const searchProviders = [
     url: 'https://stackoverflow.com/search?q={{ placeholder }}',
   },
   {
-    bang: 'w',
+    bang: 'wk',
     name: 'Wikipedia',
     url: 'https://pt.wikipedia.org/w/index.php?search={{ placeholder }}',
   },
   {
-    bang: 'r',
+    bang: 'rd',
     name: 'Reddit',
     url: 'https://reddit.com/search?q={{ placeholder }}',
   },
   {
     bang: 'fb',
     name: 'Facebook',
-    url: 'https://facebook.com/s.php?q={{ placeholder }}',
+    url: 'https://www.facebook.com/s.php?q={{ placeholder }}',
   },
   {
-    bang: 't',
+    bang: 'tt',
     name: 'Twitter',
     url: 'https://twitter.com/search?q={{ placeholder }}',
   },

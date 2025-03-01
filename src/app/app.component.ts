@@ -28,17 +28,18 @@ import { SearchProvider, searchProviders } from './searchProviders';
             Configure no seu navegador como motor de busca padrão a seguinte
             url:
           </p>
-          <code>https://banger.lzart.com.br?q=%s</code>
+          <code (click)="copySetupUrl($event)"
+            >https://banger.lzart.com.br?q=%s</code
+          >
         </div>
 
         <p>Para usar, basta digitar na barra de busca ! e o 'bang' desejado.</p>
         <p>
           Exemplo:
           <code>!<span class="bang-highlight">yt</span> Angular</code> irá
-          pesquisar 'Angular' no 'YouTube'.
+          pesquisar <code>Angular</code> no <code>YouTube</code>.
         </p>
         <p>Caso não seja passado nenhuma bang, será usado o motor padrão.</p>
-        <p>Lista completa de 'bangs' suportados:</p>
         <ul>
           @for (provider of searchProviders; track $index) {
           <li (click)="setDefaultBang(provider)">
@@ -74,6 +75,13 @@ export class AppComponent {
   searchProviders = searchProviders as SearchProvider[];
   showDefaultUi = false;
   defaultBang = this.getDefaultBang();
+
+  copySetupUrl(event: Event) {
+    event.preventDefault();
+    let target = event.target as HTMLElement;
+    navigator.clipboard.writeText(target?.innerText);
+    alert('URL copiada para a área de transferência!');
+  }
 
   getBangUrlRedirect(): string | null {
     const url = new URL(window.location.href);
