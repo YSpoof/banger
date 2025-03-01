@@ -106,6 +106,12 @@ export class AppComponent {
 
     const cleanQuery = query.replace(/!\S+\s*/i, '').trim();
 
+    // If there's no search query after the bang, redirect to the provider's homepage
+    if (!cleanQuery) {
+      const baseUrl = realBang.url.slice(0, realBang.url.indexOf('/', 8));
+      return baseUrl;
+    }
+
     const redirectUrl = realBang.url.replace('{{ placeholder }}', cleanQuery);
 
     if (!redirectUrl) return null;

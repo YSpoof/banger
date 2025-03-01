@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1740822930330,
+  "timestamp": 1740826879179,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/favicon.svg",
         "/index.html",
-        "/main-CVXTVY7O.js",
+        "/main-7PMNQR7K.js",
         "/styles-DWSMYKFE.css"
       ],
       "patterns": []
@@ -34,8 +34,8 @@
   "dataGroups": [],
   "hashTable": {
     "/favicon.svg": "fc48a47197746396f9170ef7aa29dd0b4e16dd71",
-    "/index.html": "4b8429e0272ffff6743c3ae0258039dd74261659",
-    "/main-CVXTVY7O.js": "ef547b15ee08723f886e56d4282085511d32b1d7",
+    "/index.html": "1d34fd24bcebb749f10963187d628f57f8f39d4e",
+    "/main-7PMNQR7K.js": "2174e1202edd90cc8583bb2b7788cfe1af6d8dbc",
     "/opensearch.xml": "1e5962eb45427dc1390d69eedf58c9785679c209",
     "/styles-DWSMYKFE.css": "cb7e9365f2f2e220ecd751bcd432ffda22222ad9"
   },
