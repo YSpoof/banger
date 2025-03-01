@@ -9,7 +9,6 @@ import { SearchProvider, searchProviders } from './searchProviders';
       <div>
         <h1>Banger</h1>
         <p>Essa ferramenta permite usar 'bangs' em qualquer navegador.</p>
-        <p>Como instalar:</p>
         <p>
           Tutoriais para:
           <a
@@ -24,43 +23,58 @@ import { SearchProvider, searchProviders } from './searchProviders';
             >Firefox</a
           >
         </p>
-        <ol>
-          <li>
-            <p>
-              Configure no seu navegador como motor de busca a seguinte url:
-            </p>
-            <code>https://banger.lzart.com.br?q=%s</code>
-          </li>
-        </ol>
+        <div id="setup">
+          <p>
+            Configure no seu navegador como motor de busca padrão a seguinte
+            url:
+          </p>
+          <code>https://banger.lzart.com.br?q=%s</code>
+        </div>
 
         <p>Para usar, basta digitar na barra de busca ! e o 'bang' desejado.</p>
         <p>
-          Exemplo: <code>!g Angular</code> irá pesquisar 'Angular' no 'Google' ;
+          Exemplo:
+          <code>!<span class="bang-highlight">yt</span> Angular</code> irá
+          pesquisar 'Angular' no 'YouTube'.
         </p>
+        <p>Caso não seja passado nenhuma bang, será usado o motor padrão.</p>
         <p>Lista completa de 'bangs' suportados:</p>
         <ul>
           @for (provider of searchProviders; track $index) {
-          <li>
-            <strong>!{{ provider.bang }}</strong
-            >: {{ provider.name }}
+          <li (click)="setDefaultBang(provider)">
+            <code>
+              !<span class="bang-highlight">{{ provider.bang }}</span
+              >:
+              {{ provider.name }}
+            </code>
+            @if (isDefaultBang(provider)) {
+            <span class="default-span">(padrão)</span>
+            } @else {
+            <span>(clique para definir como padrão)</span>
+            }
           </li>
           }
         </ul>
+        <p id="configure">
+          Configure o banger usando
+          <code>!<span class="bang-highlight">cfg</span> </code>
+        </p>
       </div>
     </main>
-    <p>
-      Desenvolvido por <a href="https://lzart.com.br" target="_blank">LZArt</a>
-    </p>
+    <footer>
+      <p>
+        Desenvolvido por
+        <a href="https://lzart.com.br" target="_blank">LZArt</a>
+      </p>
+    </footer>
     }
   `,
 })
 export class AppComponent {
   searchProviders = searchProviders as SearchProvider[];
   showDefaultUi = false;
-  defaultBang = {
-    bang: 'g',
-    url: 'https://www.google.com/search?q={{ placeholder }}',
-  };
+  defaultBang = this.getDefaultBang();
+
   getBangUrlRedirect(): string | null {
     const url = new URL(window.location.href);
     const query = url.searchParams.get('q')?.trim() ?? '';
@@ -72,6 +86,11 @@ export class AppComponent {
     const match = query.match(/!(\S+)/i);
 
     const bang = match?.[1]?.toLowerCase();
+
+    if (bang === 'cfg') {
+      this.showDefaultUi = true;
+      return null;
+    }
 
     const realBang =
       searchProviders.find((provider) => provider.bang === bang) ??
@@ -85,6 +104,27 @@ export class AppComponent {
 
     return redirectUrl;
   }
+
+  getDefaultBang() {
+    const fromLS = localStorage.getItem('defaultBang');
+    if (fromLS) {
+      return JSON.parse(fromLS);
+    }
+    return {
+      bang: 'g',
+      url: 'https://www.google.com/search?q={{ placeholder }}',
+    };
+  }
+
+  setDefaultBang(bang: SearchProvider) {
+    localStorage.setItem('defaultBang', JSON.stringify(bang));
+    this.defaultBang = bang;
+  }
+
+  isDefaultBang(provider: SearchProvider): boolean {
+    return provider.bang === this.defaultBang.bang;
+  }
+
   doRedirect(): void {
     const redirectUrl = this.getBangUrlRedirect();
     if (redirectUrl) {
@@ -93,5 +133,18 @@ export class AppComponent {
   }
   ngOnInit() {
     this.doRedirect();
+    searchProviders.forEach((provider) => {
+      // add preconnect and prefetch link in header
+      // We skip on the 3rd slash to get the origin
+      const link = document.createElement('link');
+      link.rel = 'preconnect';
+      link.href = provider.url.slice(0, provider.url.indexOf('/', 8));
+      document.head.appendChild(link);
+
+      const prefetchLink = document.createElement('link');
+      prefetchLink.rel = 'prefetch';
+      prefetchLink.href = provider.url.slice(0, provider.url.indexOf('/', 8));
+      document.head.appendChild(prefetchLink);
+    });
   }
 }

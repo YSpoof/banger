@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1740787792106,
+  "timestamp": 1740794784321,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -11,10 +11,10 @@
         "ignoreVary": true
       },
       "urls": [
-        "/favicon.ico",
+        "/favicon.svg",
         "/index.html",
-        "/main-QODLAVTY.js",
-        "/styles-5INURTSO.css"
+        "/main-37O25S7I.js",
+        "/styles-OLU4C3Z5.css"
       ],
       "patterns": []
     },
@@ -33,11 +33,11 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
-    "/index.html": "13f1164b2008ced52dd587bc43f5bc1ffcbac15a",
-    "/main-QODLAVTY.js": "6625f681f9f3306b5372c1359c217eb2902369b1",
+    "/favicon.svg": "fc48a47197746396f9170ef7aa29dd0b4e16dd71",
+    "/index.html": "994a3ca8a79197069721a55e313adde2fbd33619",
+    "/main-37O25S7I.js": "ebfd25424ea06a2802daed3205d48bd4cdb35c4d",
     "/opensearch.xml": "1e5962eb45427dc1390d69eedf58c9785679c209",
-    "/styles-5INURTSO.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    "/styles-OLU4C3Z5.css": "1beabedde5d36146fc132b37fe97d6a59071276d"
   },
   "navigationUrls": [
     {

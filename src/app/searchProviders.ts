@@ -2,12 +2,12 @@ const searchProviders = [
   {
     bang: 'g',
     name: 'Google',
-    url: 'https://www.google.com/search?q={{ placeholder }}',
+    url: 'https://google.com/search?q={{ placeholder }}',
   },
   {
     bang: 'yt',
     name: 'Youtube',
-    url: 'https://www.youtube.com/results?search_query={{ placeholder }}',
+    url: 'https://youtube.com/results?search_query={{ placeholder }}',
   },
   {
     bang: 'gh',
@@ -16,12 +16,12 @@ const searchProviders = [
   },
   {
     bang: 'npm',
-    name: 'NPM',
-    url: 'https://www.npmjs.com/search?q={{ placeholder }}',
+    name: 'NPMJS',
+    url: 'https://npmjs.com/search?q={{ placeholder }}',
   },
   {
     bang: 'mdn',
-    name: 'MDN',
+    name: 'MDN Web Docs',
     url: 'https://developer.mozilla.org/en-US/search?q={{ placeholder }}',
   },
   {
@@ -32,12 +32,17 @@ const searchProviders = [
   {
     bang: 'w',
     name: 'Wikipedia',
-    url: 'https://en.wikipedia.org/w/index.php?search={{ placeholder }}',
+    url: 'https://pt.wikipedia.org/w/index.php?search={{ placeholder }}',
   },
   {
     bang: 'r',
     name: 'Reddit',
-    url: 'https://www.reddit.com/search?q={{ placeholder }}',
+    url: 'https://reddit.com/search?q={{ placeholder }}',
+  },
+  {
+    bang: 'fb',
+    name: 'Facebook',
+    url: 'https://facebook.com/s.php?q={{ placeholder }}',
   },
   {
     bang: 't',
