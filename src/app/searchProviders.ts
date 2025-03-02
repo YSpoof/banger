@@ -59,6 +59,16 @@ const searchProviders = [
     name: 'Twitter',
     url: 'https://twitter.com/search?q={{ placeholder }}',
   },
+  {
+    bang: 'ct',
+    name: 'Comando Torrents',
+    url: 'https://comandotorrents.to/?s={{ placeholder }}',
+  },
+  {
+    bang: 'pt',
+    name: 'Pirate Torrents',
+    url: 'https://thepiratetorrents.org/?s={{ placeholder }}',
+  },
 ];
 
 interface SearchProvider {

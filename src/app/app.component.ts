@@ -67,6 +67,7 @@ import { SearchProvider, searchProviders } from './searchProviders';
         Desenvolvido por
         <a href="https://lzart.com.br" target="_blank">LZArt</a>
       </p>
+      <p>Veja o <a href="/disclaimer.html">disclaimer</a>.</p>
     </footer>
     }
   `,
