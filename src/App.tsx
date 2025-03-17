@@ -105,6 +105,19 @@ export default function App() {
     }
   }
 
+  function showCustomProviderModal() {
+    const modal = document.getElementById("modal") as HTMLDialogElement;
+    modal?.showModal();
+  }
+
+  function addCustomProvider() {
+    return;
+  }
+
+  function testCustomProvider() {
+    return;
+  }
+
   return (
     <main>
       <div>
@@ -170,6 +183,48 @@ export default function App() {
           </code>
         </p>
       </div>
+      <div id="customProviders">
+        <h2>Provedores personalizados</h2>
+        <p>
+          Caso deseje adicionar um provedor personalizado, basta adicionar a URL
+          do provedor e a 'bang' desejada.
+        </p>
+        <p>
+          Exemplo:
+          <code>
+            !<span class="bang-highlight">my</span> https://mysearch.com?q=%s
+          </code>
+        </p>
+        <p>
+          <button onClick={showCustomProviderModal}>Clique aqui</button> para
+          adicionar um provedor personalizado.
+        </p>
+      </div>
+      <dialog id="modal">
+        <label for="providerBang">Bang</label>
+        <input
+          type="text"
+          name="providerBang"
+          id="providerBang"
+          placeholder="Bang"
+        />
+        <label for="providerUrl">URL</label>
+        <input
+          type="text"
+          name="providerUrl"
+          id="providerUrl"
+          placeholder="URL do provedor"
+        />
+        <button onClick={testCustomProvider}>Testar Provedor</button>
+        <button onClick={addCustomProvider}>Adicionar Provedor</button>
+        <button
+          onClick={() =>
+            (document.getElementById("modal") as HTMLDialogElement).close()
+          }
+        >
+          Fechar
+        </button>
+      </dialog>
       <footer>
         <p>
           Desenvolvido por
