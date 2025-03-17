@@ -2,14 +2,36 @@ import { createSignal, For, onMount } from "solid-js";
 import { SearchProvider, searchProviders } from "./searchProviders";
 
 export default function App() {
+  const [customProviders, setCustomProviders] = createSignal<SearchProvider[]>(
+    [],
+  );
+  const [combinedProviders, setCombinedProviders] = createSignal<
+    SearchProvider[]
+  >([...searchProviders]);
+  let modal!: HTMLDialogElement;
+  let modalProviderName!: HTMLInputElement;
+  let modalProviderBang!: HTMLInputElement;
+  let modalProviderUrl!: HTMLInputElement;
+
   onMount(() => {
+    loadCustomProviders();
     doRedirect();
     registerServiceWorker();
   });
 
-  const [defaultBang, setDefaultBang] = createSignal<SearchProvider>(
-    getDefaultBang()
-  );
+  const [defaultBang, setDefaultBang] =
+    createSignal<SearchProvider>(getDefaultBang());
+
+  const storage = {
+    set(key: string, value: any) {
+      localStorage.setItem(key, JSON.stringify(value));
+    },
+    get<T>(key: string) {
+      const value = localStorage.getItem(key);
+      if (!value) return null;
+      return JSON.parse(value) as T;
+    },
+  };
 
   function registerServiceWorker() {
     if ("serviceWorker" in navigator) {
@@ -48,7 +70,7 @@ export default function App() {
     }
 
     const realBang =
-      searchProviders.find((provider) => provider.bang === bang) ??
+      combinedProviders().find((provider) => provider.bang === bang) ??
       defaultBang();
 
     const cleanQuery = query.replace(/!\S+\s*/i, "").trim();
@@ -97,6 +119,86 @@ export default function App() {
     }
   }
 
+  function removeCustomProvider(provider: SearchProvider) {
+    if (!confirm(`Deseja realmente remover o provedor ${provider.name}?`))
+      return;
+    const updatedCustomProviders = customProviders().filter(
+      (p) => p.bang !== provider.bang,
+    );
+    setCustomProviders(updatedCustomProviders);
+    setCombinedProviders([...searchProviders, ...updatedCustomProviders]);
+    storage.set("customProviders", updatedCustomProviders);
+    console.log(`Custom provider removed: ${provider.name}`);
+  }
+
+  function addCustomProvider() {
+    const name = modalProviderName.value.trim();
+    const bang = modalProviderBang.value.trim().toLowerCase().replace("!", "");
+    const url = modalProviderUrl.value.trim();
+
+    if (!validadeUrl(url)) {
+      alert("URL inválida. Por favor, verifique o formato da URL.");
+      return;
+    }
+
+    if (checkIfBangExists(bang)) {
+      alert("Essa Bang já está em uso. Por favor, escolha outra.");
+      return;
+    }
+
+    if (name && bang && url) {
+      const newProvider: SearchProvider = { name, bang, url };
+      const updatedCustomProviders = [...customProviders(), newProvider];
+      setCustomProviders(updatedCustomProviders);
+      setCombinedProviders([...searchProviders, ...updatedCustomProviders]);
+      localStorage.setItem(
+        "customProviders",
+        JSON.stringify(updatedCustomProviders),
+      );
+      console.log(`Custom provider added: ${newProvider.name}`);
+      alert(`Provedor ${name} adicionado com sucesso!`);
+      modal.close();
+    } else {
+      alert("Por favor, preencha todos os campos: nome, bang e URL.");
+    }
+    return;
+  }
+
+  function checkIfBangExists(bang: string): boolean {
+    return combinedProviders().some((provider) => provider.bang === bang);
+  }
+
+  function testCustomProvider() {
+    const url = modalProviderUrl.value.trim();
+
+    if (!validadeUrl(url)) {
+      alert("URL inválida. Por favor, verifique o formato da URL.");
+      return;
+    }
+
+    window.open(url.replace("%s", "Banger LZArt"), "_blank");
+    return;
+  }
+
+  function loadCustomProviders() {
+    const loaded = storage.get<SearchProvider[]>("customProviders") || [];
+    setCustomProviders(loaded);
+    setCombinedProviders([...searchProviders, ...loaded]);
+    loaded.forEach((provider: SearchProvider) => {
+      console.log(`Custom provider loaded: ${provider.name}`);
+    });
+  }
+
+  function validadeUrl(url: string): boolean {
+    try {
+      if (!url.includes("%s")) return false;
+      new URL(url);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
   return (
     <main>
       <div>
@@ -139,9 +241,24 @@ export default function App() {
         </p>
         <p>Caso não seja passado nenhuma bang, será usado o motor padrão.</p>
         <ul>
-          <For each={searchProviders}>
+          <For
+            each={combinedProviders()}
+            fallback={<li>Nenhum provedor de busca encontrado.</li>}
+          >
             {(provider) => (
               <li onClick={() => changeDefaultBang(provider)}>
+                {customProviders().some((p) => p.bang === provider.bang) && (
+                  <button
+                    id="removeProvider"
+                    title={`Remover ${provider.bang}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeCustomProvider(provider);
+                    }}
+                  >
+                    X
+                  </button>
+                )}
                 <code>
                   !<span class="bang-highlight">{provider.bang}</span>:
                   {provider.name}
@@ -162,6 +279,62 @@ export default function App() {
           </code>
         </p>
       </div>
+      <div id="customProviders">
+        <p>
+          <button
+            class="btn-addCustomProvider"
+            onClick={() => modal.showModal()}
+          >
+            Clique aqui para adicionar um provedor personalizado.
+          </button>
+        </p>
+      </div>
+      <dialog ref={modal} class="custom-modal">
+        <h3>Adicionar provedor personalizado</h3>
+        <div class="form-group">
+          <label for="providerName">Nome</label>
+          <input
+            type="text"
+            name="providerName"
+            id="providerName"
+            ref={modalProviderName}
+            placeholder="Exemplo: Meu Provider"
+          />
+        </div>
+        <div class="form-group">
+          <label for="providerBang">Bang</label>
+          <input
+            type="text"
+            name="providerBang"
+            id="providerBang"
+            ref={modalProviderBang}
+            placeholder="Exemplo: my"
+          />
+        </div>
+        <div class="form-group">
+          <label for="providerUrl">
+            URL (%s é onde a pesquisa será inserida)
+          </label>
+          <input
+            type="text"
+            name="providerUrl"
+            id="providerUrl"
+            ref={modalProviderUrl}
+            placeholder="https://mysearch.com?q=%s"
+          />
+        </div>
+        <div class="modal-actions">
+          <button class="btn-test" onClick={testCustomProvider}>
+            Testar
+          </button>
+          <button class="btn-add" onClick={addCustomProvider}>
+            Adicionar
+          </button>
+          <button class="btn-close" onClick={() => modal.close()}>
+            Fechar
+          </button>
+        </div>
+      </dialog>
       <footer>
         <p>
           Desenvolvido por

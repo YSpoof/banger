@@ -135,9 +135,12 @@ li {
   border-radius: 8px;
   background-color: rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  transition: transform 0.2s, background-color 0.2s;
+  transition:
+    transform 0.2s,
+    background-color 0.2s;
   animation: fadeIn 0.5s ease-out;
   animation-fill-mode: both;
+  position: relative;
 }
 
 li:hover {
@@ -291,4 +294,157 @@ li:nth-child(even) {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent);
+}
+
+.custom-modal {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--khaki);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  animation: fadeIn 0.3s ease-out;
+  margin: auto;
+}
+
+.custom-modal h3 {
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  border-bottom: 2px solid var(--highlight);
+  padding-bottom: 0.5rem;
+}
+
+.custom-modal::backdrop {
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(3px);
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.form-group input {
+  padding: 0.8rem;
+  border-radius: 6px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--khaki);
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(255, 127, 17, 0.2);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  justify-content: flex-end;
+}
+
+.modal-actions button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.btn-test {
+  background-color: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.btn-test:hover {
+  background-color: rgba(255, 127, 17, 0.1);
+}
+
+.btn-add {
+  background-color: var(--accent);
+  color: var(--bg-primary);
+}
+
+.btn-add:hover {
+  background-color: var(--highlight);
+  transform: translateY(-2px);
+}
+
+.btn-close {
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--khaki);
+}
+
+.btn-close:hover {
+  background-color: rgba(190, 183, 164, 0.1);
+}
+
+#removeProvider {
+  background-color: rgba(255, 27, 28, 0.15);
+  color: var(--highlight);
+  border: 1px solid var(--highlight);
+  border-radius: 4px;
+  padding: 0.2rem 0.4rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.6;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+#removeProvider:hover {
+  background-color: var(--highlight);
+  color: var(--baby-powder);
+  opacity: 1;
+  transform: scale(1.05);
+  box-shadow: 0 0 8px rgba(255, 27, 28, 0.4);
+}
+
+#removeProvider:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 27, 28, 0.5);
+}
+
+li #removeProvider {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 2;
+}
+
+.btn-addCustomProvider {
+  background-color: var(--accent);
+  color: var(--baby-powder);
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.btn-addCustomProvider:hover {
+  background-color: var(--highlight);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
