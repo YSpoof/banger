@@ -52,7 +52,7 @@ You can configure your default search engine by:
 
 ## Technical Details
 
-- Built with Angular
+- Built with SolidJS
 - Works offline after initial load using service workers
 - Lightweight and fast - redirects happen almost instantly
 
