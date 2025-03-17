@@ -200,30 +200,42 @@ export default function App() {
           adicionar um provedor personalizado.
         </p>
       </div>
-      <dialog id="modal">
-        <label for="providerBang">Bang</label>
-        <input
-          type="text"
-          name="providerBang"
-          id="providerBang"
-          placeholder="Bang"
-        />
-        <label for="providerUrl">URL</label>
-        <input
-          type="text"
-          name="providerUrl"
-          id="providerUrl"
-          placeholder="URL do provedor"
-        />
-        <button onClick={testCustomProvider}>Testar Provedor</button>
-        <button onClick={addCustomProvider}>Adicionar Provedor</button>
-        <button
-          onClick={() =>
-            (document.getElementById("modal") as HTMLDialogElement).close()
-          }
-        >
-          Fechar
-        </button>
+      <dialog id="modal" class="custom-modal">
+        <h3>Adicionar provedor personalizado</h3>
+        <div class="form-group">
+          <label for="providerBang">Bang</label>
+          <input
+            type="text"
+            name="providerBang"
+            id="providerBang"
+            placeholder="Exemplo: my"
+          />
+        </div>
+        <div class="form-group">
+          <label for="providerUrl">URL</label>
+          <input
+            type="text"
+            name="providerUrl"
+            id="providerUrl"
+            placeholder="https://exemplo.com/search?q={{ placeholder }}"
+          />
+        </div>
+        <div class="modal-actions">
+          <button class="btn-test" onClick={testCustomProvider}>
+            Testar
+          </button>
+          <button class="btn-add" onClick={addCustomProvider}>
+            Adicionar
+          </button>
+          <button
+            class="btn-close"
+            onClick={() =>
+              (document.getElementById("modal") as HTMLDialogElement).close()
+            }
+          >
+            Fechar
+          </button>
+        </div>
       </dialog>
       <footer>
         <p>
