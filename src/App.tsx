@@ -4,18 +4,6 @@ import { SearchProvider, searchProviders } from "./searchProviders";
 export default function App() {
   onMount(() => {
     doRedirect();
-    searchProviders.forEach((provider) => {
-      const link = document.createElement("link");
-      link.rel = "preconnect";
-      link.href = provider.url.slice(0, provider.url.indexOf("/", 8));
-      document.head.appendChild(link);
-
-      const prefetchLink = document.createElement("link");
-      prefetchLink.rel = "prefetch";
-      prefetchLink.href = provider.url.slice(0, provider.url.indexOf("/", 8));
-      document.head.appendChild(prefetchLink);
-    });
-
     registerServiceWorker();
   });
 
@@ -27,7 +15,7 @@ export default function App() {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker
         .register("/sw.js")
-        .then((registration) => {
+        .then((_registration) => {
           console.log("Service Worker registrado com sucesso!");
         })
         .catch((error) => {
@@ -79,14 +67,18 @@ export default function App() {
   }
 
   function getDefaultBang() {
+    const defaultProvider: SearchProvider = {
+      name: "Google",
+      bang: "gg",
+      url: "https://www.google.com/search?q={{ placeholder }}",
+    };
     const fromLS = localStorage.getItem("defaultBang");
     if (fromLS) {
       return JSON.parse(fromLS);
+    } else {
+      localStorage.setItem("defaultBang", JSON.stringify(defaultProvider));
     }
-    return {
-      bang: "g",
-      url: "https://www.google.com/search?q={{ placeholder }}",
-    };
+    return defaultProvider;
   }
 
   function changeDefaultBang(bang: SearchProvider) {

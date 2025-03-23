@@ -69,6 +69,16 @@ const searchProviders = [
     name: 'Pirate Torrents',
     url: 'https://thepiratetorrents.org/?s={{ placeholder }}',
   },
+  {
+    bang: 'igg',
+    name: 'IGG Games',
+    url: 'https://igg-games.com/?s={{ placeholder }}',
+  },
+  {
+    bang: 'pcg',
+    name: 'PCGames Torrents',
+    url: 'https://pcgamestorrents.com/?s={{ placeholder }}',
+  },
 ];
 
 interface SearchProvider {

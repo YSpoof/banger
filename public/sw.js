@@ -1,3 +1,4 @@
+const SW_VERSION = '0.0.1'
 const CACHE_NAME = 'banger';
 const URLS_TO_CACHE = [
   '/index.html',
@@ -6,10 +7,24 @@ const URLS_TO_CACHE = [
   '/favicon.svg'
 ];
 
-// Install event - cache files
+// Install event - clean all caches and cache new files
 self.addEventListener('install', event => {
+  // Skip the waiting phase and activate immediately
+  self.skipWaiting();
+
   event.waitUntil(
-    caches.open(CACHE_NAME)
+    caches.keys()
+      .then(cacheNames => {
+        return Promise.all(
+          cacheNames.map(cacheName => {
+            console.log('Deleting cache:', cacheName);
+            return caches.delete(cacheName);
+          })
+        );
+      })
+      .then(() => {
+        return caches.open(CACHE_NAME);
+      })
       .then(cache => {
         console.log('Cache opened');
         return cache.addAll(URLS_TO_CACHE);
@@ -17,20 +32,9 @@ self.addEventListener('install', event => {
   );
 });
 
-// Activate event - clean up old caches
+// Activate event - claim clients so the new service worker takes over immediately
 self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            console.log('Deleting old cache:', cacheName);
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
-  );
+  event.waitUntil(self.clients.claim());
 });
 
 // Fetch event - serve from cache or fetch from network
