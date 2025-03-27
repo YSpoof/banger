@@ -138,7 +138,6 @@ export default function App() {
       alert("Por favor, preencha todos os campos: nome, bang e URL.");
     }
     return;
-    d;
   }
 
   function testCustomProvider() {
