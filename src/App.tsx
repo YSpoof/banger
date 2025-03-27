@@ -23,6 +23,17 @@ export default function App() {
     getDefaultBang()
   );
 
+  const storage = {
+    set(key: string, value: any) {
+      localStorage.setItem(key, JSON.stringify(value));
+    },
+    get<T>(key: string) {
+      const value = localStorage.getItem(key);
+      if (!value) return null;
+      return JSON.parse(value) as T;
+    },
+  };
+
   function registerServiceWorker() {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker
@@ -109,8 +120,14 @@ export default function App() {
     }
   }
 
-  function showCustomProviderModal() {
-    modal.showModal();
+  function removeCustomProvider(provider: SearchProvider) {
+    const updatedCustomProviders = customProviders().filter(
+      (p) => p.bang !== provider.bang
+    );
+    setCustomProviders(updatedCustomProviders);
+    setCombinedProviders([...searchProviders, ...updatedCustomProviders]);
+    storage.set("customProviders", updatedCustomProviders);
+    console.log(`Custom provider removed: ${provider.name}`);
   }
 
   function addCustomProvider() {
@@ -133,6 +150,7 @@ export default function App() {
         JSON.stringify(updatedCustomProviders)
       );
       console.log(`Custom provider added: ${newProvider.name}`);
+      alert(`Provider ${name} adicionado com sucesso!`);
       modal.close();
     } else {
       alert("Por favor, preencha todos os campos: nome, bang e URL.");
@@ -153,7 +171,7 @@ export default function App() {
   }
 
   function loadCustomProviders() {
-    const loaded = JSON.parse(localStorage.getItem("customProviders") || "[]");
+    const loaded = storage.get<SearchProvider[]>("customProviders") || [];
     setCustomProviders(loaded);
     setCombinedProviders([...searchProviders, ...loaded]);
     loaded.forEach((provider: SearchProvider) => {
@@ -251,7 +269,7 @@ export default function App() {
           </code>
         </p>
         <p>
-          <button onClick={showCustomProviderModal}>Clique aqui</button> para
+          <button onClick={() => modal.showModal()}>Clique aqui</button> para
           adicionar um provedor personalizado.
         </p>
       </div>
