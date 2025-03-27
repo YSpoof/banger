@@ -121,6 +121,8 @@ export default function App() {
   }
 
   function removeCustomProvider(provider: SearchProvider) {
+    if (!confirm(`Deseja realmente remover o provedor ${provider.name}?`))
+      return;
     const updatedCustomProviders = customProviders().filter(
       (p) => p.bang !== provider.bang
     );
@@ -132,11 +134,16 @@ export default function App() {
 
   function addCustomProvider() {
     const name = modalProviderName.value.trim();
-    const bang = modalProviderBang.value.trim().toLowerCase();
+    const bang = modalProviderBang.value.trim().toLowerCase().replace("!", "");
     const url = modalProviderUrl.value.trim();
 
     if (!validadeUrl(url)) {
       alert("URL inválida. Por favor, verifique o formato da URL.");
+      return;
+    }
+
+    if (checkIfBangExists(bang)) {
+      alert("Essa Bang já está em uso. Por favor, escolha outra.");
       return;
     }
 
@@ -150,7 +157,7 @@ export default function App() {
         JSON.stringify(updatedCustomProviders)
       );
       console.log(`Custom provider added: ${newProvider.name}`);
-      alert(`Provider ${name} adicionado com sucesso!`);
+      alert(`Provedor ${name} adicionado com sucesso!`);
       modal.close();
     } else {
       alert("Por favor, preencha todos os campos: nome, bang e URL.");
@@ -158,15 +165,19 @@ export default function App() {
     return;
   }
 
+  function checkIfBangExists(bang: string): boolean {
+    return combinedProviders().some((provider) => provider.bang === bang);
+  }
+
   function testCustomProvider() {
-    const url = modalProviderUrl.value.trim().replace("%s", "Banger LZArt");
+    const url = modalProviderUrl.value.trim();
 
     if (!validadeUrl(url)) {
       alert("URL inválida. Por favor, verifique o formato da URL.");
       return;
     }
 
-    window.open(url, "_blank");
+    window.open(url.replace("%s", "Banger LZArt"), "_blank");
     return;
   }
 
@@ -181,6 +192,7 @@ export default function App() {
 
   function validadeUrl(url: string): boolean {
     try {
+      if (!url.includes("%s")) return false;
       new URL(url);
       return true;
     } catch (error) {
@@ -236,6 +248,18 @@ export default function App() {
           >
             {(provider) => (
               <li onClick={() => changeDefaultBang(provider)}>
+                {customProviders().some((p) => p.bang === provider.bang) && (
+                  <button
+                    id="removeProvider"
+                    title={`Remover ${provider.bang}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeCustomProvider(provider);
+                    }}
+                  >
+                    X
+                  </button>
+                )}
                 <code>
                   !<span class="bang-highlight">{provider.bang}</span>:
                   {provider.name}
@@ -296,7 +320,9 @@ export default function App() {
           />
         </div>
         <div class="form-group">
-          <label for="providerUrl">URL</label>
+          <label for="providerUrl">
+            URL (%s é onde a pesquisa será inserida)
+          </label>
           <input
             type="text"
             name="providerUrl"

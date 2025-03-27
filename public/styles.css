@@ -138,6 +138,7 @@ li {
   transition: transform 0.2s, background-color 0.2s;
   animation: fadeIn 0.5s ease-out;
   animation-fill-mode: both;
+  position: relative;
 }
 
 li:hover {
@@ -390,4 +391,40 @@ li:nth-child(even) {
 
 .btn-close:hover {
   background-color: rgba(190, 183, 164, 0.1);
+}
+
+#removeProvider {
+  background-color: rgba(255, 27, 28, 0.15);
+  color: var(--highlight);
+  border: 1px solid var(--highlight);
+  border-radius: 4px;
+  padding: 0.2rem 0.4rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.6;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+#removeProvider:hover {
+  background-color: var(--highlight);
+  color: var(--baby-powder);
+  opacity: 1;
+  transform: scale(1.05);
+  box-shadow: 0 0 8px rgba(255, 27, 28, 0.4);
+}
+
+#removeProvider:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 27, 28, 0.5);
+}
+
+li #removeProvider {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 2;
 }

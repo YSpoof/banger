@@ -85,6 +85,7 @@ interface SearchProvider {
   bang: string;
   name: string;
   url: string;
+  isCustom?: boolean;
 }
 
 export type { SearchProvider };
