@@ -3,7 +3,7 @@ import { SearchProvider, searchProviders } from "./searchProviders";
 
 export default function App() {
   const [customProviders, setCustomProviders] = createSignal<SearchProvider[]>(
-    [],
+    []
   );
   const [combinedProviders, setCombinedProviders] = createSignal<
     SearchProvider[]
@@ -19,8 +19,9 @@ export default function App() {
     registerServiceWorker();
   });
 
-  const [defaultBang, setDefaultBang] =
-    createSignal<SearchProvider>(getDefaultBang());
+  const [defaultBang, setDefaultBang] = createSignal<SearchProvider>(
+    getDefaultBang()
+  );
 
   const storage = {
     set(key: string, value: any) {
@@ -123,7 +124,7 @@ export default function App() {
     if (!confirm(`Deseja realmente remover o provedor ${provider.name}?`))
       return;
     const updatedCustomProviders = customProviders().filter(
-      (p) => p.bang !== provider.bang,
+      (p) => p.bang !== provider.bang
     );
     setCustomProviders(updatedCustomProviders);
     setCombinedProviders([...searchProviders, ...updatedCustomProviders]);
@@ -153,7 +154,7 @@ export default function App() {
       setCombinedProviders([...searchProviders, ...updatedCustomProviders]);
       localStorage.setItem(
         "customProviders",
-        JSON.stringify(updatedCustomProviders),
+        JSON.stringify(updatedCustomProviders)
       );
       console.log(`Custom provider added: ${newProvider.name}`);
       alert(`Provedor ${name} adicionado com sucesso!`);
@@ -176,7 +177,7 @@ export default function App() {
       return;
     }
 
-    window.open(url.replace("%s", "Banger LZArt"), "_blank");
+    window.open(url.replace("{{ placeholder }}", "Banger LZArt"), "_blank");
     return;
   }
 
@@ -191,7 +192,7 @@ export default function App() {
 
   function validadeUrl(url: string): boolean {
     try {
-      if (!url.includes("%s")) return false;
+      if (!url.includes("{{ placeholder }}")) return false;
       new URL(url);
       return true;
     } catch (error) {
@@ -313,14 +314,14 @@ export default function App() {
         </div>
         <div class="form-group">
           <label for="providerUrl">
-            URL (%s é onde a pesquisa será inserida)
+            URL ({"{{ placeholder }} é onde a pesquisa será inserida"})
           </label>
           <input
             type="text"
             name="providerUrl"
             id="providerUrl"
             ref={modalProviderUrl}
-            placeholder="https://mysearch.com?q=%s"
+            placeholder="https://mysearch.com?q={{ placeholder }}"
           />
         </div>
         <div class="modal-actions">

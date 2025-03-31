@@ -1,4 +1,4 @@
-const SW_VERSION = '0.0.1'
+const SW_VERSION = '0.0.2'
 const CACHE_NAME = 'banger';
 const URLS_TO_CACHE = [
   '/index.html',
@@ -39,11 +39,10 @@ self.addEventListener('activate', event => {
 
 // Fetch event - serve from cache or fetch from network
 self.addEventListener('fetch', event => {
-  const url = new URL(event.request.url);
+  const url = event.request.url;
 
   // Don't cache the service worker itself
   if (url.pathname === '/sw.js') {
-    event.respondWith(fetch(event.request));
     return;
   }
 
