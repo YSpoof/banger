@@ -1,16 +1,11 @@
 :root {
   --black: #000000;
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
   --baby-powder: #fffffc;
   --khaki: #beb7a4;
   --orange-wheel: #ff7f11;
   --red: #ff1b1c;
-
-  --bg-primary: #121212;
-  --bg-secondary: #1e1e1e;
-  --text-primary: var(--baby-powder);
-  --text-secondary: var(--khaki);
-  --accent: var(--orange-wheel);
-  --highlight: var(--red);
 }
 
 * {
@@ -23,7 +18,7 @@
 body {
   font-family: "Inter", "Roboto", sans-serif;
   background-color: var(--bg-primary);
-  color: var(--text-primary);
+  color: var(--baby-powder);
   line-height: 1.6;
   min-height: 100vh;
   display: flex;
@@ -47,7 +42,7 @@ h1 {
   font-size: 3.5rem;
   font-weight: 800;
   margin-bottom: 1.5rem;
-  color: var(--accent);
+  color: var(--orange-wheel);
   position: relative;
   display: inline-block;
   animation: slideIn 0.5s ease-out;
@@ -60,25 +55,25 @@ h1::after {
   left: 0;
   width: 60px;
   height: 4px;
-  background-color: var(--highlight);
+  background-color: var(--red);
   animation: expandLine 0.8s ease-out forwards;
 }
 
 p {
   margin-bottom: 1.2rem;
   font-size: 1rem;
-  color: var(--text-secondary);
+  color: var(--khaki);
 }
 
 a {
-  color: var(--accent);
+  color: var(--orange-wheel);
   text-decoration: none;
   position: relative;
   font-weight: 500;
 }
 
 a:hover {
-  color: var(--highlight);
+  color: var(--red);
 }
 
 a::after {
@@ -88,7 +83,7 @@ a::after {
   left: 0;
   width: 0;
   height: 2px;
-  background-color: var(--highlight);
+  background-color: var(--red);
   transition: width 0.3s ease;
 }
 
@@ -100,9 +95,8 @@ a:hover::after {
   margin: 2rem 0;
   padding: 1.5rem;
   background-color: rgba(255, 127, 17, 0.1);
-  border-left: 4px solid var(--accent);
+  border-left: 4px solid var(--orange-wheel);
   border-radius: 0 8px 8px 0;
-  animation: pulse 2s infinite alternate;
 }
 
 code {
@@ -111,12 +105,12 @@ code {
   border-radius: 4px;
   font-family: "Fira Code", monospace;
   border: 1px solid rgba(190, 183, 164, 0.2);
-  color: var(--text-primary);
+  color: var(--baby-powder);
   display: inline-block;
 }
 
 .bang-highlight {
-  color: var(--highlight);
+  color: var(--red);
   font-weight: bold;
   animation: popIn 0.5s ease-out;
   display: inline-block;
@@ -135,9 +129,7 @@ li {
   border-radius: 8px;
   background-color: rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  transition:
-    transform 0.2s,
-    background-color 0.2s;
+  transition: transform 0.2s, background-color 0.2s;
   animation: fadeIn 0.5s ease-out;
   animation-fill-mode: both;
   position: relative;
@@ -156,7 +148,7 @@ li code {
 }
 
 .default-span {
-  color: var(--accent);
+  color: var(--orange-wheel);
   font-size: 0.9rem;
   font-style: italic;
   display: inline-block;
@@ -293,12 +285,12 @@ li:nth-child(even) {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent);
+  background: var(--orange-wheel);
 }
 
 .custom-modal {
   background-color: var(--bg-secondary);
-  color: var(--text-primary);
+  color: var(--baby-powder);
   border: 1px solid var(--khaki);
   border-radius: 12px;
   padding: 2rem;
@@ -310,10 +302,10 @@ li:nth-child(even) {
 }
 
 .custom-modal h3 {
-  color: var(--accent);
+  color: var(--orange-wheel);
   margin-bottom: 1.5rem;
   font-size: 1.5rem;
-  border-bottom: 2px solid var(--highlight);
+  border-bottom: 2px solid var(--red);
   padding-bottom: 0.5rem;
 }
 
@@ -330,7 +322,7 @@ li:nth-child(even) {
 
 .form-group label {
   margin-bottom: 0.5rem;
-  color: var(--text-secondary);
+  color: var(--khaki);
   font-weight: 500;
 }
 
@@ -339,13 +331,13 @@ li:nth-child(even) {
   border-radius: 6px;
   background-color: var(--bg-primary);
   border: 1px solid var(--khaki);
-  color: var(--text-primary);
+  color: var(--baby-powder);
   font-size: 1rem;
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: var(--accent);
+  border-color: var(--orange-wheel);
   box-shadow: 0 0 0 2px rgba(255, 127, 17, 0.2);
 }
 
@@ -367,8 +359,8 @@ li:nth-child(even) {
 
 .btn-test {
   background-color: transparent;
-  color: var(--accent);
-  border: 1px solid var(--accent);
+  color: var(--orange-wheel);
+  border: 1px solid var(--orange-wheel);
 }
 
 .btn-test:hover {
@@ -376,18 +368,18 @@ li:nth-child(even) {
 }
 
 .btn-add {
-  background-color: var(--accent);
+  background-color: var(--orange-wheel);
   color: var(--bg-primary);
 }
 
 .btn-add:hover {
-  background-color: var(--highlight);
+  background-color: var(--red);
   transform: translateY(-2px);
 }
 
 .btn-close {
   background-color: transparent;
-  color: var(--text-secondary);
+  color: var(--khaki);
   border: 1px solid var(--khaki);
 }
 
@@ -397,8 +389,8 @@ li:nth-child(even) {
 
 #removeProvider {
   background-color: rgba(255, 27, 28, 0.15);
-  color: var(--highlight);
-  border: 1px solid var(--highlight);
+  color: var(--red);
+  border: 1px solid var(--red);
   border-radius: 4px;
   padding: 0.2rem 0.4rem;
   font-size: 0.8rem;
@@ -412,7 +404,7 @@ li:nth-child(even) {
 }
 
 #removeProvider:hover {
-  background-color: var(--highlight);
+  background-color: var(--red);
   color: var(--baby-powder);
   opacity: 1;
   transform: scale(1.05);
@@ -432,8 +424,8 @@ li #removeProvider {
 }
 
 .btn-addCustomProvider {
-  background-color: var(--accent);
-  color: var(--baby-powder);
+  background-color: var(--bg-primary);
+  color: var(--orange-wheel);
   padding: 0.6rem 1.2rem;
   border-radius: 6px;
   font-weight: 500;
@@ -444,7 +436,7 @@ li #removeProvider {
 }
 
 .btn-addCustomProvider:hover {
-  background-color: var(--highlight);
+  color: var(--red);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

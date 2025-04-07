@@ -5,6 +5,7 @@ Banger is a lightweight search engine wrapper that lets you use "bangs" to quick
 ## What are "bangs"?
 
 Bangs are special commands prefixed with an exclamation mark (`!`) that redirect your search to specific websites. For example:
+
 - `!gg angular` searches for "angular" on Google
 - `!yt javascript tutorial` searches for "javascript tutorial" on YouTube
 - `!gh react` searches for "react" on GitHub
@@ -29,6 +30,7 @@ Banger supports many search providers, including:
 - `!npm` - npm package registry
 - `!mdn` - MDN Web Docs
 - And many more!
+- You can also add custom ones in the `!cfg` menu.
 
 ## How to Set Up
 
@@ -47,12 +49,13 @@ Banger supports many search providers, including:
 ## Configuration
 
 You can configure your default search engine by:
+
 1. Typing `!cfg` in the search bar to access the configuration page
 2. Clicking on any search engine in the list to set it as your default
 
 ## Technical Details
 
-- Built with SolidJS
+- Built with VueJS
 - Works offline after initial load using service workers
 - Lightweight and fast - redirects happen almost instantly
 

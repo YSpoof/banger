@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main v-if="!loading" id="main">
     <div>
       <h1>Banger</h1>
       <p>Essa ferramenta permite usar 'bangs' em qualquer navegador.</p>
@@ -26,7 +26,6 @@
         </p>
         <code @click="copySetupUrl">https://banger.lzart.com.br?q=%s</code>
       </div>
-
       <p>Para usar, basta digitar na barra de busca ! e o 'bang' desejado.</p>
       <p>
         Exemplo:
@@ -81,7 +80,7 @@
           type="text"
           name="providerName"
           id="providerName"
-          v-model="modalProviderName"
+          v-model.trim="modalProviderName"
           placeholder="Exemplo: Meu Provider"
         />
       </div>
@@ -91,7 +90,7 @@
           type="text"
           name="providerBang"
           id="providerBang"
-          v-model="modalProviderBang"
+          v-model.trim="modalProviderBang"
           placeholder="Exemplo: my"
         />
       </div>
@@ -103,7 +102,7 @@
           type="text"
           name="providerUrl"
           id="providerUrl"
-          v-model="modalProviderUrl"
+          v-model.trim="modalProviderUrl"
           placeholder="https://mysearch.com?q={{ placeholder }}"
         />
       </div>
@@ -121,19 +120,21 @@
       <p>Veja o <a href="/disclaimer.html">disclaimer</a>.</p>
     </footer>
   </main>
+  <Loading v-if="loading" />
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
 import { type SearchProvider, searchProviders } from "./searchProviders";
-
+import Loading from "@/Loading.vue";
 // Refs
 const customProviders = ref<SearchProvider[]>([]);
 const defaultBang = ref<SearchProvider>(getDefaultBang());
 const modalRef = ref<HTMLDialogElement | null>(null);
-const modalProviderName = ref<string>("");
-const modalProviderBang = ref<string>("");
-const modalProviderUrl = ref<string>("");
+const modalProviderName = ref("");
+const modalProviderBang = ref("");
+const modalProviderUrl = ref("");
+const loading = ref(false);
 
 // Computed properties
 const combinedProviders = computed<SearchProvider[]>(() => [
@@ -143,6 +144,7 @@ const combinedProviders = computed<SearchProvider[]>(() => [
 
 // Lifecycle hooks
 onMounted(() => {
+  loading.value = true;
   loadCustomProviders();
   doRedirect();
 });
@@ -230,7 +232,9 @@ function doRedirect(): void {
   const redirectUrl = getBangUrlRedirect();
   if (redirectUrl) {
     window.location.href = redirectUrl;
+    return;
   }
+  loading.value = false;
 }
 
 function removeCustomProvider(provider: SearchProvider) {
@@ -244,9 +248,9 @@ function removeCustomProvider(provider: SearchProvider) {
 }
 
 function addCustomProvider() {
-  const name = modalProviderName.value.trim();
-  const bang = modalProviderBang.value.trim().toLowerCase().replace("!", "");
-  const url = modalProviderUrl.value.trim();
+  const name = modalProviderName.value;
+  const bang = modalProviderBang.value.toLowerCase().replace("!", "");
+  const url = modalProviderUrl.value;
 
   if (!validadeUrl(url)) {
     alert("URL inválida. Por favor, verifique o formato da URL.");
@@ -275,7 +279,7 @@ function checkIfBangExists(bang: string): boolean {
 }
 
 function testCustomProvider() {
-  const url = modalProviderUrl.value.trim();
+  const url = modalProviderUrl.value;
 
   if (!validadeUrl(url)) {
     alert("URL inválida. Por favor, verifique o formato da URL.");
