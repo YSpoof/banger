@@ -19,6 +19,7 @@ coverage
 
 # Dependency directories
 dev-dist
+bun.lock
 
 # Editor directories and files
 .vscode/*
