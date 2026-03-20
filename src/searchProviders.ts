@@ -27,7 +27,7 @@ const searchProviders = [
   {
     bang: 'npm',
     name: 'NPMJS',
-    url: 'https://npmjs.com/search?q={{ placeholder }}',
+    url: 'https://npmx.dev/search?q={{ placeholder }}',
   },
   {
     bang: 'mdn',
