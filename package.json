@@ -1,19 +1,44 @@
 {
-  "name": "banger",
+  "name": "sveltebase",
+  "version": "0.0.1",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "imports": {
+    "#lib": "./src/lib/index.js",
+    "#lib/*": "./src/lib/*"
+  },
   "scripts": {
-    "dev": "vite",
-    "build": "rm -rf dist; tsc && vite build && cp dist/index.html dist/404.html",
+    "dev": "vite dev",
+    "build": "vite build",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --tsgo",
     "preview": "vite preview",
-    "predeploy": "pnpm run build",
-    "deploy": "gh-pages -d dist"
+    "prepare": "svelte-kit sync || echo '' && husky",
+    "precommit": "lint-staged",
+    "predeploy": "pnpm build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
+    "@iconify-json/mdi": "^1.2.3",
+    "@sveltejs/adapter-static": "next",
+    "@sveltejs/kit": "next",
+    "@sveltejs/vite-plugin-svelte": "^7.3.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.2.0",
+    "@typescript/native": "npm:typescript@^7.0.2",
+    "daisyui": "^5.7.17",
     "gh-pages": "^6.3.0",
-    "typescript": "~5.9.3",
-    "vite": "^8.0.1",
-    "vite-plugin-pwa": "^1.2.0"
-  }
+    "husky": "^9.1.7",
+    "lint-staged": "^17.3.0",
+    "oxfmt": "^0.63.0",
+    "svelte": "^5.56.9",
+    "svelte-check": "^4.7.6",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^6.0.3",
+    "unplugin-icons": "^23.0.1",
+    "vite": "^8.2.1"
+  },
+  "lint-staged": {
+    "*.{json,ts,js,svelte}": "oxfmt"
+  },
+  "packageManager": "pnpm@11.20.0"
 }

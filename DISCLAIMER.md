@@ -6,7 +6,7 @@
 
 <br>
 
-The goal of this project is to make it easier and efficient for people to access results of websites that provide a search mechanism. All content available through this project is OBVIOUSLY hosted by external non-affiliated sources. 
+The goal of this project is to make it easier and efficient for people to access results of websites that provide a search mechanism. All content available through this project is OBVIOUSLY hosted by external non-affiliated sources.
 
 <br>
 
@@ -22,10 +22,9 @@ This project has NO CONTROL over the content it JUST redirect the user! Using co
 
 </b>
 
-
 <br>
 
-<h2>DMCA and Copyright Infrigements</h3>
+<h2>DMCA and Copyright Infrigements</h2>
 
 <br>
 
@@ -34,9 +33,8 @@ This project has NO CONTROL over the content it JUST redirect the user! Using co
 A wrapper is JUST a tool, and the maliciousness of the tool is directly based on the user's actions.
 </b>
 
-
 <p>This project uses client-side content access mechanisms. Hence, the copyright infringements or DMCA in this project's regards are to be forwarded to the associated site by the associated notifier of any such claims. This is one of the main reasons the search engines are listed in this project. Keep in mind that your IP address as a user is directly accessible to the search engines.</p>
-  
+
 <h2>Conclusion</h2>
 <p>Please use this project responsibly and be aware of your legal obligations.</p>
 
