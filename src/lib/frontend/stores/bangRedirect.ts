@@ -19,7 +19,6 @@ export const getBangUrlRedirect = (
   const realBang = combinedProviders.find((provider) => provider.bang === bang) ?? defaultBang;
   const cleanQuery = query.replace(/!\S+\s*/i, "").trim();
 
-  // If the query is empty, return the provider's base URL
   if (!cleanQuery) {
     const urlEndIndex = realBang.url.indexOf("/", 8);
     return urlEndIndex > -1 ? realBang.url.slice(0, urlEndIndex) : realBang.url;

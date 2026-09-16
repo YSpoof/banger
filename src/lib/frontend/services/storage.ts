@@ -6,7 +6,7 @@ export class StorageService {
   getItem = <T>(key: string): T | null => {
     try {
       return JSON.parse(localStorage.getItem(key) || "null");
-    } catch (error) {
+    } catch {
       return null;
     }
   };

@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@plugin "daisyui/index";
+
+.toast-progress-fill {
+  width: var(--toast-progress);
+}

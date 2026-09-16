@@ -1,44 +1,50 @@
 {
-  "name": "sveltebase",
+  "name": "banger",
   "version": "0.0.1",
   "private": true,
+  "description": "Search with bangs",
+  "license": "MIT",
   "type": "module",
   "imports": {
-    "#lib": "./src/lib/index.js",
     "#lib/*": "./src/lib/*"
   },
   "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --tsgo",
-    "preview": "vite preview",
-    "prepare": "svelte-kit sync || echo '' && husky",
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build && cp dist/client/index.html dist/client/404.html",
+    "serve": "vite preview",
+    "lint": "oxlint src",
+    "check": "tsc --noEmit",
+    "prepare": "husky",
     "precommit": "lint-staged",
     "predeploy": "pnpm build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist/client"
+  },
+  "dependencies": {
+    "@solidjs/web": "^2.0.0-rc.6",
+    "solid-js": "^2.0.0-rc.6"
   },
   "devDependencies": {
     "@iconify-json/mdi": "^1.2.3",
-    "@sveltejs/adapter-static": "next",
-    "@sveltejs/kit": "next",
-    "@sveltejs/vite-plugin-svelte": "^7.3.0",
+    "@solidjs/diagnostics": "^2.0.0-rc.6",
+    "@solidjs/vite-plugin": "^3.0.0-next.38",
     "@tailwindcss/vite": "^4.3.3",
-    "@types/node": "^26.2.0",
-    "@typescript/native": "npm:typescript@^7.0.2",
+    "@types/node": "^24.5.2",
     "daisyui": "^5.7.17",
+    "eslint-plugin-solid": "~0.18.0",
     "gh-pages": "^6.3.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.3.0",
     "oxfmt": "^0.63.0",
-    "svelte": "^5.56.9",
-    "svelte-check": "^4.7.6",
+    "oxlint": "~1.79.0",
     "tailwindcss": "^4.3.3",
-    "typescript": "^6.0.3",
+    "typescript": "^5.9.2",
     "unplugin-icons": "^23.0.1",
-    "vite": "^8.2.1"
+    "vite": "^8.1.5",
+    "vite-plugin-typed-sw": "^1.2.0"
   },
   "lint-staged": {
-    "*.{json,ts,js,svelte}": "oxfmt"
+    "*.{json,ts,tsx,js,css}": "oxfmt"
   },
-  "packageManager": "pnpm@11.20.0"
+  "packageManager": "pnpm@12.4.1"
 }

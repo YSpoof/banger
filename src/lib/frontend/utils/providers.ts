@@ -72,6 +72,11 @@ export const defaultProviders: Provider[] = [
     url: `https://npmx.dev/search?q=${PLACEHOLDER_TOKEN}`,
   },
   {
+    bang: "ciu",
+    name: "Can I Use",
+    url: `https://caniuse.com/?search=${PLACEHOLDER_TOKEN}`,
+  },
+  {
     bang: "mdn",
     name: "MDN Web Docs",
     url: `https://developer.mozilla.org/en-US/search?q=${PLACEHOLDER_TOKEN}`,

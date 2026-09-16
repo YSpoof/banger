@@ -5,6 +5,5 @@
   "bracketSameLine": true,
   "singleAttributePerLine": true,
   "sortImports": true,
-  "sortTailwindcss": true,
-  "svelte": true
+  "sortTailwindcss": true
 }

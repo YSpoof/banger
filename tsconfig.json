@@ -1,10 +1,18 @@
 {
-  "extends": "$app/tsconfig",
   "compilerOptions": {
-    "rewriteRelativeImportExtensions": true,
-    "sourceMap": true,
+    "jsx": "preserve",
+    "jsxImportSource": "@solidjs/web",
+    "target": "ESNext",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
     "strict": true,
-    "target": "esnext"
+    "skipLibCheck": true,
+    "rewriteRelativeImportExtensions": true,
+    "types": ["vite/client", "vite-plugin-typed-sw/client", "unplugin-icons/types/solid"]
   },
   "include": ["src"],
   "exclude": ["src/service-worker"]

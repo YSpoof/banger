@@ -6,8 +6,19 @@ node_modules
 .output
 /.svelte-kit
 /build
+dist
 
 # Env
 .env
 .env.*
 !.env.example
+
+.wrangler
+.vercel
+.netlify
+.vinxi
+app.config.timestamp_*.js
+.env*.local
+
+.DS_Store
+Thumbs.db

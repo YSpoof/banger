@@ -1,9 +1,9 @@
-import { version } from "$app/env";
-import { assets, immutable, prerendered } from "$app/manifest";
-import { self } from "$app/service-worker";
+import { buildFiles, publicFiles, version } from "virtual:typed-sw-extras";
+
+declare let self: ServiceWorkerGlobalScope;
 
 const CACHE = `banger-${version}`;
-const ASSETS = [...immutable, ...assets, ...prerendered].map((asset) => `/${asset.path}`);
+const ASSETS = [...buildFiles, ...publicFiles];
 
 console.log(ASSETS);
 
@@ -19,7 +19,6 @@ const CACHE_DESTINATIONS = [
 ];
 
 self.addEventListener("install", (event) => {
-  // Create a new cache and add all files to it
   async function addFilesToCache() {
     const cache = await caches.open(CACHE);
     await cache.addAll(ASSETS);
@@ -29,17 +28,12 @@ self.addEventListener("install", (event) => {
 });
 
 self.addEventListener("activate", (event) => {
-  // Remove previous cached data from disk
-  async function deleteOldCaches() {
-    for (const key of await caches.keys()) {
-      if (key !== CACHE) await caches.delete(key);
-    }
-  }
-
   event.waitUntil(
     (async () => {
-      await deleteOldCaches();
       await self.clients.claim();
+      for (const key of await caches.keys()) {
+        if (key !== CACHE) await caches.delete(key);
+      }
     })(),
   );
 });
@@ -63,29 +57,22 @@ self.addEventListener("fetch", (event) => {
       }
     }
 
-    // for everything else, network only with offline fallback
-    try {
-      const response = await fetch(event.request);
+    const response = await fetch(event.request);
 
-      // if we're offline, fetch can return a value that is not a Response
-      // instead of throwing - and we can't pass this non-Response to respondWith
-      if (!(response instanceof Response)) {
-        throw new Error("invalid response from fetch");
-      }
-
-      const shouldCache =
-        CACHE_DESTINATIONS.includes(req.destination) &&
-        !response.headers.get("cache-control")?.includes("no-store") &&
-        response.status === 200;
-
-      if (shouldCache) {
-        cache.put(event.request, response.clone());
-      }
-
-      return response;
-    } catch (err) {
-      throw err;
+    if (!(response instanceof Response)) {
+      throw new Error("invalid response from fetch");
     }
+
+    const shouldCache =
+      CACHE_DESTINATIONS.includes(req.destination) &&
+      !response.headers.get("cache-control")?.includes("no-store") &&
+      response.status === 200;
+
+    if (shouldCache) {
+      cache.put(event.request, response.clone());
+    }
+
+    return response;
   }
 
   event.respondWith(respond());

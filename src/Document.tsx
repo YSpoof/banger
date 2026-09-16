@@ -1,0 +1,90 @@
+import { HydrationScript } from "@solidjs/web";
+import type { ParentProps } from "solid-js";
+
+export default function Document(props: ParentProps) {
+  return (
+    <html lang="pt-BR">
+      <head>
+        <meta charset="utf-8" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1"
+        />
+        <meta
+          name="theme-color"
+          content="#000000"
+        />
+        <title>Banger</title>
+        <meta
+          name="title"
+          content="Banger"
+        />
+        <meta
+          name="description"
+          content="Banger: Procure coisas usando bangs!"
+        />
+        <link
+          title="Banger"
+          rel="search"
+          type="application/opensearchdescription+xml"
+          href="/opensearch.xml"
+        />
+        <link
+          rel="icon"
+          type="image/svg+xml"
+          href="/favicon.svg"
+        />
+        <meta
+          name="keywords"
+          content="bangs, search, web, shortcuts, pesquisa, internet"
+        />
+        <meta
+          name="author"
+          content="LZArt"
+        />
+        <meta
+          property="og:type"
+          content="website"
+        />
+        <meta
+          property="og:url"
+          content="https://banger.lzart.com.br/"
+        />
+        <meta
+          property="og:title"
+          content="Banger"
+        />
+        <meta
+          property="og:description"
+          content="Banger: Procure coisas usando bangs!"
+        />
+        <meta
+          property="og:image"
+          content="https://banger.lzart.com.br/banger.webp"
+        />
+        <meta
+          property="twitter:card"
+          content="summary_large_image"
+        />
+        <meta
+          property="twitter:url"
+          content="https://banger.lzart.com.br/"
+        />
+        <meta
+          property="twitter:title"
+          content="Banger"
+        />
+        <meta
+          property="twitter:description"
+          content="Banger: Procure coisas usando bangs!"
+        />
+        <meta
+          property="twitter:image"
+          content="https://banger.lzart.com.br/banger.webp"
+        />
+        <HydrationScript />
+      </head>
+      <body>{props.children}</body>
+    </html>
+  );
+}
